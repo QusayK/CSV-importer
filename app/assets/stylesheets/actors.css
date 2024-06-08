@@ -1,0 +1,43 @@
+/* actors.css */
+
+/* Styles for search form */
+form {
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+}
+
+input[type="text"] {
+  width: 300px;
+  padding: 8px;
+  margin-right: 10px;
+}
+
+input[type="submit"] {
+  padding: 8px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Styles for search results */
+h2 {
+  margin-top: 20px;
+}
+
+li {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+/* Pagination */
+.pagination {
+  margin-top: 20px;
+}

@@ -10,15 +10,15 @@ namespace :import do
         directors = {}
         SmarterCSV.process(Rails.root.join('db', 'csv', 'movies.csv'), chunk_size: chunk_size) do |chunk|
           chunk.each do |row|
+
             director_name = row[:director]
             unless directors[director_name]
               directors[director_name] = Director.find_or_create_by(name: director_name)
             end
     
             location = FilmingLocation.find_or_create_by(name: row[:filming_location])
-
             country = Country.find_or_create_by(name: row[:country])
-
+            
             director = directors[director_name]
 
             movie = Movie.find_by(title: row[:movie])
@@ -41,6 +41,7 @@ namespace :import do
         # Import users and reviews
         users = {}
         SmarterCSV.process(Rails.root.join('db', 'csv', 'reviews.csv'), chunk_size: chunk_size) do |chunk|
+          
           chunk.each do |row|
             user_name = row[:user]
             unless users[user_name]
