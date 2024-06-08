@@ -18,8 +18,8 @@
         <td><%= movie.description %></td>
         <td><%= movie.year %></td>
         <td><%= movie.director.name %></td>
-        <td><%= movie.filming_location %></td>
-        <td><%= movie.country %></td>
+        <td><%= movie.filming_location.name %></td>
+        <td><%= movie.country.name %></td>
         <td><%= movie.average_rating || 0 %></td>
       </tr>
     <% end %>

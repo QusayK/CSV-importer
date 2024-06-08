@@ -6,7 +6,7 @@ namespace :import do
       chunk_size = 1000
 
       thread = Thread.new do
-        # Import directors and movies
+        # Import directors, locations, countries and movies
         directors = {}
         SmarterCSV.process(Rails.root.join('db', 'csv', 'movies.csv'), chunk_size: chunk_size) do |chunk|
           chunk.each do |row|
@@ -15,15 +15,23 @@ namespace :import do
               directors[director_name] = Director.find_or_create_by(name: director_name)
             end
     
+            location = FilmingLocation.find_or_create_by(name: row[:filming_location])
+
+            country = Country.find_or_create_by(name: row[:country])
+
             director = directors[director_name]
-            movie = Movie.find_or_create_by(
-              title: row[:movie],
-              description: row[:description],
-              year: row[:year],
-              director: director,
-              country: row[:country],
-              filming_location: row[:filming_location]
-            )
+
+            movie = Movie.find_by(title: row[:movie])
+            unless movie
+              movie = Movie.create(
+                title: row[:movie],
+                description: row[:description],
+                year: row[:year],
+                director: director,
+                filming_location: location,
+                country: country
+              )
+            end
     
             actor = Actor.find_or_create_by(name: row[:actor])
             MovieActor.find_or_create_by(movie: movie, actor: actor)
@@ -63,4 +71,3 @@ namespace :import do
   def refresh_materialized_view
     ActiveRecord::Base.connection.execute("REFRESH MATERIALIZED VIEW movie_average_ratings")
   end
-  
