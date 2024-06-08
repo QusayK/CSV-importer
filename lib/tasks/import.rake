@@ -55,6 +55,12 @@ namespace :import do
       end
 
       thread.join
+
+      refresh_materialized_view
     end
+  end
+  
+  def refresh_materialized_view
+    ActiveRecord::Base.connection.execute("REFRESH MATERIALIZED VIEW movie_average_ratings")
   end
   
