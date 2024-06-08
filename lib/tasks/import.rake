@@ -5,7 +5,7 @@ namespace :import do
   
       chunk_size = 1000
 
-      Thread.new do
+      thread = Thread.new do
         # Import directors and movies
         directors = {}
         SmarterCSV.process(Rails.root.join('db', 'csv', 'movies.csv'), chunk_size: chunk_size) do |chunk|
@@ -50,9 +50,11 @@ namespace :import do
             end
           end
         end
+
+        puts "Movies, directors, actors, users, and reviews imported successfully"
       end
 
-      puts "Movies, directors, actors, users, and reviews imported successfully"
+      thread.join
     end
   end
   

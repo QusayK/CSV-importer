@@ -69,6 +69,3 @@ end
 gem 'pg'
 gem 'smarter_csv'
 gem 'will_paginate'
-gem "threads", "~> 0.4.0"
-
-gem "thread", "~> 0.2.2"
