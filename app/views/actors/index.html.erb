@@ -1,0 +1,35 @@
+<h1>Search Actors</h1>
+<%= form_with url: actors_path, method: :get do %>
+  <%= label_tag :actor, 'Actor Name' %>
+  <%= text_field_tag :actor, params[:actor] %>
+  <%= submit_tag 'Search' %>
+<% end %>
+
+<% if @actors.present? %>
+  <h2>Search Results</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Actor Name</th>
+        <th>Movies</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @actors.each do |actor| %>
+        <tr>
+          <td><%= actor.name %></td>
+          <td>
+            <ul>
+              <% actor.movies.each do |movie| %>
+                <li><%= movie.title %> ( <%= movie.year %> )</li>
+              <% end %>
+            </ul>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= will_paginate @actors %>
+<% end %>
+
